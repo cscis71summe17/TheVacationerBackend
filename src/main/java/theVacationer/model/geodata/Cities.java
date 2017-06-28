@@ -5,20 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
-
+import org.sqlite.JDBC;
 /**
  * Created by Peter on 6/27/2017.
  */
-public class Countries extends Model {
+public class Cities extends Model {
   private final String COUNTRY_TABLE = "Country";
   private final String CITY_TABLE = "City";
-  List<String> countryList;
-  public Countries () {
+  List<String> cityList;
+  public Cities (String country) {
     try {
-      countryList = new ArrayList<String>();
-      ResultSet results = query(null);
+      cityList = new ArrayList<String>();
+      ResultSet results = query(country);
       while (results.next()) {
-        countryList.add(results.getString(2));
+        cityList.add(results.getString(1));
       }
 
     }
@@ -29,9 +29,13 @@ public class Countries extends Model {
   public ResultSet query(String query) throws Exception {
     Connection db = DriverManager.getConnection("jdbc:sqlite:" + FILE_PATH);
     Statement stmt = db.createStatement();
-    return stmt.executeQuery("SELECT * FROM " + COUNTRY_TABLE + ";");
+    String str =
+      "SELECT A.name " +
+      "FROM  " + CITY_TABLE + " AS A, " + COUNTRY_TABLE + " AS B " +
+      "WHERE A.country_id = B.id AND B.name LIKE '" + query + "';";
+    return stmt.executeQuery(str);
   }
-  public List<String> getCountryList() {
-    return countryList;
+  public List<String> getCityList() {
+    return cityList;
   }
 }
