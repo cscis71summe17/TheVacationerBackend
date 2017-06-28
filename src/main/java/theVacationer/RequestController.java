@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import theVacationer.model.geodata.Cities;
 import theVacationer.model.geodata.Countries;
 import theVacationer.model.geodata.Country;
 import theVacationer.model.geodata.Geodata;
@@ -28,15 +29,13 @@ public class RequestController {
         Countries c = new Countries();
         Iterator itr = c.getCountryList().iterator();
         List<Country> countryList = new ArrayList<Country>();
-
         while(itr.hasNext()) {
             String country = (String)itr.next();
-            List<String > cityList = Arrays.asList("NYC", "Boston", "Miami");
+            Cities city = new Cities("France");
+            List<String > cityList = city.getCityList();
             Country mockCountry = new Country(country,cityList);
             countryList.add(mockCountry);
-
         }
-
 
         Geodata geoDataList = new Geodata(countryList);
         return geoDataList;
