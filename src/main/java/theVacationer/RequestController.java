@@ -1,11 +1,14 @@
 package theVacationer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import theVacationer.model.geodata.Countries;
 import theVacationer.model.geodata.Country;
 import theVacationer.model.geodata.Geodata;
 import theVacationer.model.landmarks.Landmarks;
@@ -22,12 +25,20 @@ public class RequestController {
         //Mocking Data add DB query
         //TODO Pete, please query from DB
         //To test RUN and in web browser go to http://localhost:8080/geodata
+        Countries c = new Countries("");
+        Iterator itr = c.getCountryList().iterator();
+        List<Country> countryList = new ArrayList<Country>();
 
-        String country = "USA";
-        List<String > cityList = Arrays.asList("NYC", "Boston", "Miami");
-        Country mockCountry = new Country(country,cityList);
+        while(itr.hasNext()) {
+            String country = (String)itr.next();
+            List<String > cityList = Arrays.asList("NYC", "Boston", "Miami");
+            Country mockCountry = new Country(country,cityList);
+            countryList.add(mockCountry);
 
-        Geodata geoDataList = new Geodata(Arrays.asList(mockCountry, mockCountry, mockCountry));
+        }
+
+
+        Geodata geoDataList = new Geodata(countryList);
         return geoDataList;
     }
 
