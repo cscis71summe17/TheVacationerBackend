@@ -25,7 +25,7 @@ public class RequestController {
         //Mocking Data add DB query
         //TODO Pete, please query from DB
         //To test RUN and in web browser go to http://localhost:8080/geodata
-        Countries c = new Countries("");
+        Countries c = new Countries();
         Iterator itr = c.getCountryList().iterator();
         List<Country> countryList = new ArrayList<Country>();
 
