@@ -13,10 +13,10 @@ public class Countries extends Model {
   private final String COUNTRY_TABLE = "Country";
   private final String CITY_TABLE = "City";
   List<String> countryList;
-  public Countries (String query) {
+  public Countries () {
     try {
       countryList = new ArrayList<String>();
-      ResultSet results = query(query);
+      ResultSet results = query(null);
       while (results.next()) {
         countryList.add(results.getString(2));
       }
