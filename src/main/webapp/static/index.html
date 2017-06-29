@@ -11,8 +11,21 @@
 <div id="data_container" style="margin:20px"></div>
 
 <script>
-    onload="populateCountries()";
+    onload = "populateCountries()";
+    var landmarksdata = {
+        header: [
+            {id: 1, title: "Buckingham Palace and the Changing of the Guard"},
+            {id: 2, title: "Big Ben and Parliament"},
+            {id: 3, title: "Museum of Science and Industry"}
+        ],
+        bodies: [
+            "One of Britain's most iconic buildings, Buckingham Palace is also the scene of London's most popular display of pomp and circumstance, the Changing of the Guard. Drawing crowds at 11:30am in every season, this colorful and free display of precision marching and music also takes place at St James's Palace where you can follow the band along The Mall as they march between sites.",
+            "Displaying one of the world's finest collections of antiquities, the British Museum contains more than 13 million artifacts from the ancient world. With priceless objects from Assyria, Babylonia,",
+            "Nothing says 'London' more emphatically than the 97-meter tower housing the giant clock and its resounding bell known as Big Ben. It's as iconic a landmark as Tower Bridge. The tolling of Big Ben is known throughout the world as the time signal of BBC radio. Below it, stretching along the Thames, are the Houses of Parliament, seat of Britain's government for many centuries and once the site of the royal Westminster Palace occupied by William the Conqueror. Tours of the parliament buildings offer a unique chance to see real-time debates and lively political discussions. From Parliament Square, Whitehall is lined by so many government buildings that its name has become synonymous with the British government."
+        ]
+    };
 
+    var safetyInfo = [{"id":1,"number":"112","description":"All Services"},{"id":2,"number":"17","description":"Police"},{"id":3,"number":"15","description":"Medical Help"}];
     webix.ui({
         rows: [
             {
@@ -64,22 +77,77 @@
                                 value: "Seattle"
                             }
                         ]
-                    },
-                    {rows: [{}, {view: "button", label: "Update", width: 100}]}
+                    }
+                ]
+            },
+            {
+                id: "mylayout",
+                type: "space",
+                rows: [
+
+                    {
+                        cols: [
+
+                            {
+                                rows: [
+
+                                    {template: "Landmarks", type: "header"}
+                                    ,
+                                    {
+                                        view: "list",
+                                        id: "landmarkslistid",
+                                        width: 250,
+                                        height: 200,
+                                        template: "#title#",
+                                        select: true,
+                                        data: landmarksdata.header
+                                    }
+                                ]
+                            },
+                            {width: 30},
+                            {
+                                rows: [
+
+                                    {template: "Safety numbers", type: "header"}
+                                    ,
+                                    {
+                                        view: "list",
+                                        width: 250,
+                                        id: "safetyinfoid",
+                                        height: 200,
+                                        template: "#description#: #number# </div>",
+                                        select: true,
+
+                                        data: safetyInfo
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
-        ]
-    });
 
-    var geoData = {};
+
+        ]
+    })
+    ;
+
+    var geodataList = {};
+
+    function getCurrentCity() {
+        return $$('cityid').getText();
+    }
+
+    function getCurrentCountry() {
+        return $$('countryid').getText();
+    }
 
     webix.ready(function () {
         webix.ajax("../geodata/", function (text) {
             var parsed = JSON.parse(text);
-            geoData = parsed.geoData;
-            countryArray = buildCountryList(parsed.geoData);
-            alert(JSON.stringify(countryArray));
-            cityList = buildCityList(parsed.geoData[0]);
+            geodataList = parsed.geodataList;
+            countryArray = buildCountryList(parsed.geodataList);
+            cityList = buildCityList(parsed.geodataList[0]);
             $$('countryid').define('options', countryArray);
             $$('cityid').define('options', cityList);
             $$('countryid').setValue(0);
@@ -87,16 +155,63 @@
             $$('cityid').setValue(0);
             $$('cityid').setValue(1);
         });
+
+        var city = getCurrentCity();
+        var country = getCurrentCountry();
+
+        webix.ajax("../landmarks?city="+city+"&country="+country, function (text) {
+            landmarksdata = JSON.parse(text);
+            $$('landmarkslistid').define('data', landmarksdata.header);
+        });
     });
 
     $$("countryid").attachEvent("onChange", function (newv, oldv) {
         if (newv > 0) {
-            webix.message("Value changed from: " + oldv + " to: " + newv);
-            cities = buildCityList(geoData[newv - 1]);
+            cities = buildCityList(geodataList[newv - 1]);
             $$('cityid').define('options', cities);
             $$('cityid').setValue(0);
             $$('cityid').setValue(1);
+            var city = getCurrentCity();
+            var country = getCurrentCountry();
+            webix.ajax("../landmarks?city="+city+"&country="+country, function (text) {
+                var parsed = JSON.parse(text);
+                console.log(JSON.stringify(parsed.header));
+                landmarksdata = parsed;
+                $$('landmarkslistid').define('data', landmarksdata.header);
+                $$('landmarkslistid').refresh();
+            });
+            webix.ajax("../safetyinfo?country="+country, function (text) {
+                var parsed = JSON.parse(text);
+                console.log(JSON.stringify(parsed.header));
+                safetyInfo = parsed;
+                $$('safetyinfoid').define('data', safetyInfo);
+                $$('safetyinfoid').refresh();
+            });
         }
+    });
+
+    $$("cityid").attachEvent("onChange", function (newv, oldv) {
+        if (newv > 0) {
+            var city = getCurrentCity();
+            var country = getCurrentCountry();
+            webix.ajax("../landmarks?city="+city+"&country="+country, function (text) {
+                var parsed = JSON.parse(text);
+                console.log(JSON.stringify(parsed.header));
+                landmarksdata = parsed;
+                $$('landmarkslistid').define('data', landmarksdata.header);
+                $$('landmarkslistid').refresh();
+            });
+        }
+    });
+
+    $$("landmarkslistid").attachEvent("onItemClick", function (id, e, node) {
+        var item = this.getItem(id);
+        webix.modalbox({
+            title: landmarksdata.header[id - 1].title.toString(),
+            buttons: ["Ok"],
+            width: "500px",
+            text: landmarksdata.bodies[id - 1].description.toString()
+        });
     });
 
     function buildCityList(countryData) {
@@ -110,11 +225,11 @@
         return cityArray
     }
 
-    function buildCountryList(geodata) {
+    function buildCountryList(geodataList) {
         var countryArray = [];
         var i = 1;
-        for (var key in geodata) {
-            var countryData = geodata[key];
+        for (var key in geodataList) {
+            var countryData = geodataList[key];
             var countryName = countryData.country.toString();
             countryArray = countryArray.concat({id: i, value: countryName});
             i = i + 1
