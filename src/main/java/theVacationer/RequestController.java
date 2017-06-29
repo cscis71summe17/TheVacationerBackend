@@ -54,4 +54,10 @@ public class RequestController {
     public List<SafetyNumber> getSafetyinfo(@RequestParam(value="country")String country) throws Exception {
         return new SafetyInfo(country).getNumbers();
     }
+
+    @RequestMapping("/gratuities")
+    public List<Integer> getGratuities(@RequestParam(value="country")String country) throws Exception {
+        return new ArrayList<>();
+    }
 }
+
