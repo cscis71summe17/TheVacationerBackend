@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import theVacationer.model.geodata.*;
 import theVacationer.model.landmarks.Landmarks;
 import theVacationer.model.landmarks.Places;
+import theVacationer.model.safetyInfo.SafetyInfo;
+import theVacationer.model.safetyInfo.SafetyNumber;
 
 @RestController
 public class RequestController {
@@ -46,5 +48,10 @@ public class RequestController {
         //To test RUN and in web browser go to http://localhost:8080/landmarks?city=boston&country=USA
       Places pl = new Places(country,city);
       return new Landmarks(pl.getLandmarkList(),pl.getLandmarkHeaderList());
+    }
+
+    @RequestMapping("/safetyinfo")
+    public List<SafetyNumber> getSafetyinfo(@RequestParam(value="country")String country) throws Exception {
+        return new SafetyInfo(country).getNumbers();
     }
 }
