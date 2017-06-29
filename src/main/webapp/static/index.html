@@ -9,11 +9,15 @@
 
 <body>
 <div id="data_container" style="margin:20px"></div>
+
 <script>
+    onload="populateCountries()";
+
     webix.ui({
         rows: [
-            {view:"toolbar", cols: [
-                { view:"label", label:'The Vacationer App', height:30, align:"left" },
+            {
+                view: "toolbar", cols: [
+                {view: "label", label: 'The Vacationer App', height: 30, align: "left"}
             ]
             },
             { // row 3
@@ -21,21 +25,21 @@
                     view: "combo",
                     width: 150,
                     label: 'Country',
-                    labelPosition:"top",
-                    value: 1,
-                    requred: true,
+                    labelPosition: "top",
                     name: "country",
+                    id: "countryid",
+                    value: 1,
                     options: [{
                         id: 1,
-                        value: "USA"
+                        value: "Boston"
                     },
                         {
                             id: 2,
-                            value: "France"
+                            value: "NY"
                         },
                         {
                             id: 3,
-                            value: "Italy"
+                            value: "Seattle"
                         }
                     ]
                 },
@@ -44,7 +48,8 @@
                         width: 150,
                         label: 'City',
                         name: "city",
-                        labelPosition:"top",
+                        id: "cityid",
+                        labelPosition: "top",
                         value: 1,
                         options: [{
                             id: 1,
@@ -60,18 +65,67 @@
                             }
                         ]
                     },
-                    { rows:[{}, {view:"button", label:"Update", width:100}]},
+                    {rows: [{}, {view: "button", label: "Update", width: 100}]}
                 ]
             }
         ]
-    })
+    });
+
+    var geoData = {};
+
+    webix.ready(function () {
+        webix.ajax("../geodata/", function (text) {
+            var parsed = JSON.parse(text);
+            geoData = parsed.geoData;
+            countryArray = buildCountryList(parsed.geoData);
+            alert(JSON.stringify(countryArray));
+            cityList = buildCityList(parsed.geoData[0]);
+            $$('countryid').define('options', countryArray);
+            $$('cityid').define('options', cityList);
+            $$('countryid').setValue(0);
+            $$('countryid').setValue(1);
+            $$('cityid').setValue(0);
+            $$('cityid').setValue(1);
+        });
+    });
+
+    $$("countryid").attachEvent("onChange", function (newv, oldv) {
+        if (newv > 0) {
+            webix.message("Value changed from: " + oldv + " to: " + newv);
+            cities = buildCityList(geoData[newv - 1]);
+            $$('cityid').define('options', cities);
+            $$('cityid').setValue(0);
+            $$('cityid').setValue(1);
+        }
+    });
+
+    function buildCityList(countryData) {
+        var cityArray = [];
+        var i = 1;
+        for (var key in countryData.cities) {
+            var cityName = countryData.cities[key].toString();
+            cityArray = cityArray.concat({id: i, value: cityName});
+            i = i + 1
+        }
+        return cityArray
+    }
+
+    function buildCountryList(geodata) {
+        var countryArray = [];
+        var i = 1;
+        for (var key in geodata) {
+            var countryData = geodata[key];
+            var countryName = countryData.country.toString();
+            countryArray = countryArray.concat({id: i, value: countryName});
+            i = i + 1
+        }
+        return countryArray
+    }
+
+
 </script>
+
 </body>
 
 </html>
-<script src='https://cdn.ravenjs.com/3.10.0/raven.min.js'></script>
-<script>
-    Raven.config('https://54bc16c4067443cb9b64bdd04526dc0d@sentry.webix.io/10', {
-        release: '4.4.0'
-    }).install();
-</script>
+
