@@ -28,7 +28,7 @@ public class RequestController {
         //To test RUN and in web browser go to http://localhost:8080/geodata
         Countries c = new Countries();
         Iterator itr = c.getCountryList().iterator();
-        List<Country> countryList = new ArrayList<Country>(); //munich, cologne, franfurt, eissen, dorthmouth,
+        List<Country> countryList = new ArrayList<Country>();
         while(itr.hasNext()) {
             String country = (String)itr.next();
             Cities city = new Cities(country);

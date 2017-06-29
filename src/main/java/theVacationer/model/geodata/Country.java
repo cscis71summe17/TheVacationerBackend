@@ -7,10 +7,10 @@ import java.util.List;
  */
 public class Country {
     public String country;
-    public List<String> cityList;
+    public List<String> cities;
 
     public Country(String country, List<String> cityList) {
         this.country = country;
-        this.cityList = cityList;
+        this.cities = cityList;
     }
 }
