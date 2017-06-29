@@ -105,4 +105,11 @@ public class RequestControllerTests {
 
     }
 
+    @Test
+    public void safetyInfoNonPresentCountry() throws Exception {
+        this.mockMvc.perform(get("/safetyinfo").param("country", "Norway"))
+                .andDo(print()).andExpect(status().isBadRequest());
+
+    }
+
 }
