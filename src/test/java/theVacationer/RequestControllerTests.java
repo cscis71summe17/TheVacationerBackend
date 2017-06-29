@@ -15,6 +15,7 @@
  */
 package theVacationer;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,18 +38,34 @@ public class RequestControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-
-        this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, World!"));
+    public void safetyInfoNoCountryFails() throws Exception {
+        this.mockMvc.perform(get("/safetyinfo"))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage() throws Exception {
+    public void safetyInfoCountriesPresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk());
 
-        this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
+    }
+    @Test
+    public void safetyInfoItalyPresent() throws Exception {
+        this.mockMvc.perform(get("/safetyinfo").param("country", "Italy"))
+                .andDo(print()).andExpect(status().isOk());
+
+    }
+    @Test
+    public void safetyInfoGermanyPresent() throws Exception {
+        this.mockMvc.perform(get("/safetyinfo").param("country", "Germany"))
+                .andDo(print()).andExpect(status().isOk());
+
+    }
+    @Test
+    public void safetyInfoFrancePresent() throws Exception {
+        this.mockMvc.perform(get("/safetyinfo").param("country", "France"))
+                .andDo(print()).andExpect(status().isOk());
+
     }
 
 }
