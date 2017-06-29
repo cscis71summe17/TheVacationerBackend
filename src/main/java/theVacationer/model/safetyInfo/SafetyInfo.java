@@ -20,11 +20,10 @@ public class SafetyInfo extends Model {
             numbers = new ArrayList<SafetyNumber>();
             ResultSet results = query(country);
             while (results.next()) {
-                System.out.println(results.getString(2));
-                SafetyNumber info = new SafetyNumber(results.getString(1),results.getString(2));
+                SafetyNumber info =
+                  new SafetyNumber(results.getString(1),results.getString(2));
                 numbers.add(info);
             }
-
         }
         catch(Exception e) {
             System.out.println(e.getMessage());
