@@ -12,7 +12,7 @@ public class Geodata {
         this.geoData = geoData;
     }
 
-    public List<Country> getGeoData() {
+    public List<Country> getGeodataList() {
         return geoData;
     }
 

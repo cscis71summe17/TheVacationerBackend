@@ -8,10 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import theVacationer.model.geodata.Cities;
-import theVacationer.model.geodata.Countries;
-import theVacationer.model.geodata.Country;
-import theVacationer.model.geodata.Geodata;
+import theVacationer.model.geodata.*;
 import theVacationer.model.landmarks.Landmarks;
 
 @RestController
@@ -42,11 +39,11 @@ public class RequestController {
     }
 
     @RequestMapping("/landmarks")
-    public Country getLandmarks(@RequestParam(value="city") String city,
+    public Landmarks getLandmarks(@RequestParam(value="city") String city,
                                   @RequestParam(value="country")String country) throws Exception {
-
         //TODO Query Landmark from DB with country/city and return Landmarks instead of Country, Landmark class is empty
         //To test RUN and in web browser go to http://localhost:8080/landmarks?city=boston&country=USA
-        return new Country(country,Arrays.asList(city));
+      Places pl = new Places(country,city);
+      return new Landmarks(pl.getLandmarkList(),pl.getLandmarkHeaderList());
     }
 }

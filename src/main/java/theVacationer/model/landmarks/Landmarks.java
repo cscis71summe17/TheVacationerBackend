@@ -6,17 +6,25 @@ import java.util.List;
  * Created by Alexander Dmitryukov on 6/28/2017.
  */
 public class Landmarks {
-    List<Landmark> landmarksList;
+    List<Landmark> bodies;
+    List<Header> header;
 
-    public Landmarks(List<Landmark> landmarksList) {
-        this.landmarksList = landmarksList;
+    public Landmarks(List<Landmark> landmarksList,List<Header> header) {
+        this.bodies = landmarksList;
+        this.header = header;
     }
 
-    public List<Landmark> getLandmarksList() {
-        return landmarksList;
+    public List<Landmark> getBodies() {
+        return bodies;
+    }
+    public List<Header> getHeader() {
+        return header;
     }
 
-    public void setLandmarksList(List<Landmark> landmarksList) {
-        this.landmarksList = landmarksList;
+    public void setbodies(List<Landmark> landmarksList) {
+        this.bodies = landmarksList;
+    }
+    public void setHeader(List<Header> header) {
+        this.header = header;
     }
 }
