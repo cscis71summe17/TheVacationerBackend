@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import theVacationer.model.geodata.*;
 import theVacationer.model.landmarks.Landmarks;
+import theVacationer.model.landmarks.Places;
 
 @RestController
 public class RequestController {

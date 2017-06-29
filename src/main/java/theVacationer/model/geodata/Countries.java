@@ -1,5 +1,7 @@
 package theVacationer.model.geodata;
 
+import theVacationer.model.Model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
