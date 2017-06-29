@@ -5,9 +5,9 @@ package theVacationer.model.landmarks;
  */
 public class Header {
   public int id;
-  public String name;
+  public String title;
   public Header(int id,String name) {
     this.id = id;
-    this.name = name;
+    this.title = name;
   }
 }
