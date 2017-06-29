@@ -1,4 +1,4 @@
-package theVacationer.model.landmarks;
+package theVacationer.model;
 
 /**
  * Created by Peter on 6/29/2017.

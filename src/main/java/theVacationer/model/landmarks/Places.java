@@ -1,6 +1,7 @@
-package theVacationer.model.geodata;
+package theVacationer.model.landmarks;
 
-import theVacationer.model.landmarks.Header;
+import theVacationer.model.Model;
+import theVacationer.model.Header;
 import theVacationer.model.landmarks.Landmark;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by Peter on 6/28/2017.
  */
-public class Places extends Model{
+public class Places extends Model {
   private final String COUNTRY_TABLE = "Country";
   private final String CITY_TABLE = "City";
   private final String LANDMARK_TABLE = "Landmarks";

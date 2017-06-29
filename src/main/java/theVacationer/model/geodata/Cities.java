@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
-import org.sqlite.JDBC;
+import theVacationer.model.Model;
+
 /**
  * Created by Peter on 6/27/2017.
  */

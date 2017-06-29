@@ -1,6 +1,7 @@
 package theVacationer.model.landmarks;
 
 import java.util.List;
+import theVacationer.model.Header;
 
 /**
  * Created by Alexander Dmitryukov on 6/28/2017.
