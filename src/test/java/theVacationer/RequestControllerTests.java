@@ -15,9 +15,11 @@
  */
 package theVacationer;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,11 +46,46 @@ public class RequestControllerTests {
     }
 
     @Test
-    public void safetyInfoCountriesPresent() throws Exception {
+    public void geoDataFiveCountriesPresent() throws Exception {
         this.mockMvc.perform(get("/geodata"))
-                .andDo(print()).andExpect(status().isOk());
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.geodataList", hasSize(5)));
 
     }
+    @Test
+    public void geoDataItalyPresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Italy")));
+    }
+    @Test
+    public void geoDataFrancePresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("France")));
+    }
+    @Test
+    public void geoDataGermanyPresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Germany")));
+
+    }
+    @Test
+    public void geoDataSpainPresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Spain")));
+
+    }
+    @Test
+    public void geoDataUKPresent() throws Exception {
+        this.mockMvc.perform(get("/geodata"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("United Kingdom")));
+
+    }
+
     @Test
     public void safetyInfoItalyPresent() throws Exception {
         this.mockMvc.perform(get("/safetyinfo").param("country", "Italy"))
