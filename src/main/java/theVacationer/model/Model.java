@@ -9,6 +9,7 @@ public abstract class Model {
   public final String COUNTRY_TABLE = "Country";
   public final String SAFETYINFO_TABLE = "SafetyInfo";
   public final String CITY_TABLE = "City";
-  public final String FILE_PATH = "src/main/resources/vacationer.sqlite";
+  //public final String FILE_PATH = "src/main/resources/vacationer.sqlite";
+  public final String FILE_PATH = "src/vacationer.sqlite";
   public abstract ResultSet query(String query) throws Exception;
 }
