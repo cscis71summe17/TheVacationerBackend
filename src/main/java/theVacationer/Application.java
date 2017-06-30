@@ -8,6 +8,12 @@ public class Application {
 
     public static void main(String[] args) {
 
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         SpringApplication.run(Application.class, args);
     }
 }
