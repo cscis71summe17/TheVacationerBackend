@@ -49,7 +49,7 @@ public class RequestControllerTests {
     public void geoDataFiveCountriesPresent() throws Exception {
         this.mockMvc.perform(get("/geodata"))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.geodataList", hasSize(3)));
+                .andExpect(jsonPath("$.geodataList", hasSize(5)));
 
     }
     @Test
