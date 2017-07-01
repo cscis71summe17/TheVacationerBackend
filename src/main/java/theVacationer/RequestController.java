@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import theVacationer.model.Model;
 import theVacationer.model.geodata.*;
 import theVacationer.model.landmarks.Landmarks;
 import theVacationer.model.landmarks.Places;
@@ -23,7 +24,6 @@ public class RequestController {
 
     @RequestMapping("/geodata")
     public Geodata getGeoData() {
-
         //Mocking Data add DB query
         //TODO Pete, please query from DB
         //To test RUN and in web browser go to http://localhost:8080/geodata

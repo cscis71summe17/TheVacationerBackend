@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Peter on 6/28/2017.
  */
@@ -45,7 +46,7 @@ public class Places extends Model {
     return null;
   }
   public ResultSet query(String country,String city) throws Exception {
-    Connection db = DriverManager.getConnection("jdbc:sqlite:" + FILE_PATH);
+    Connection db = getConnection();
     Statement stmt = db.createStatement();
     String str =
       "SELECT A.name, A.description " +

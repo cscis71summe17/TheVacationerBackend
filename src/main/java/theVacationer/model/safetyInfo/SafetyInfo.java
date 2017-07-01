@@ -38,7 +38,7 @@ public class SafetyInfo extends Model {
 
     @Override
     public ResultSet query(String country) throws Exception {
-        Connection db = DriverManager.getConnection("jdbc:sqlite:" + FILE_PATH);
+        Connection db = getConnection();
         Statement stmt = db.createStatement();
         String str =
                 "SELECT A.number, A.description " +

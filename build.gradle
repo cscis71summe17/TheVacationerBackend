@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
 jar {
-    baseName = 'TheVacationerProject'
+    baseName = 'TheVacationerProjectJar'
     version =  '0.1.0'
 }
 
@@ -42,5 +42,7 @@ dependencies {
     testCompile('com.jayway.jsonpath:json-path')
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.thymeleaf:thymeleaf-spring4")
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+    testCompile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
 }

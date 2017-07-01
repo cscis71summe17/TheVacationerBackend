@@ -2,10 +2,7 @@ package theVacationer.model.geodata;
 
 import theVacationer.model.Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 /**
@@ -29,10 +26,11 @@ public class Countries extends Model {
     }
   }
   public ResultSet query(String query) throws Exception {
-    Connection db = DriverManager.getConnection("jdbc:sqlite:" + FILE_PATH);
+    Connection db = getConnection();
     Statement stmt = db.createStatement();
     return stmt.executeQuery("SELECT * FROM " + COUNTRY_TABLE + ";");
   }
+
   public List<String> getCountryList() {
     return countryList;
   }

@@ -28,7 +28,8 @@ public class Cities extends Model {
     }
   }
   public ResultSet query(String query) throws Exception {
-    Connection db = DriverManager.getConnection("jdbc:sqlite:" + FILE_PATH);
+    Connection db = getConnection();
+
     Statement stmt = db.createStatement();
     String str =
       "SELECT A.name " +
