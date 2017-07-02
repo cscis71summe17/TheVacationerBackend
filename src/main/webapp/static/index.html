@@ -26,6 +26,14 @@
     };
 
     var safetyInfo = [{"id":1,"number":"112","description":"All Services"},{"id":2,"number":"17","description":"Police"},{"id":3,"number":"15","description":"Medical Help"}];
+    var restaurants = [
+        {"id":"1","name":"AMPELMANN Restaurant","url":"http://www.ampelmann.de"},
+        {"id":"2","name":"Restaurant Sphere","url":"http://www.tv-turm.de/en/restaurant.php"},
+        {"id":"3","name":"Restaurant HEat","url":"http://www.radisson.com"},
+        {"id":"4","name":"DINEA Restaurant","url":"https://www.dinea.de/berlin-alex/"},
+        {"id":"5","name":"Hasir Restaurant","url":"http://www.hasir.de/"}
+        ];
+
     webix.ui({
         rows: [
             {
@@ -108,17 +116,34 @@
                             {
                                 rows: [
 
-                                    {template: "Safety numbers", type: "header"}
+                                    {template: "Emergency numbers", type: "header"}
                                     ,
                                     {
                                         view: "list",
                                         width: 250,
                                         id: "safetyinfoid",
                                         height: 200,
-                                        template: "#description#: #number# </div>",
+                                        template: "#description#: #number#",
                                         select: true,
 
                                         data: safetyInfo
+                                    }
+                                ]
+                            },
+                            {width: 30},
+                            {
+                                rows: [
+
+                                    {template: "Restaurants", type: "header"}
+                                    ,
+                                    {
+                                        view: "list",
+                                        width: 250,
+                                        id: "restaurantsid",
+                                        height: 200,
+                                        template: "#name#",
+                                        select: true,
+                                        data: restaurants
                                     }
                                 ]
                             }
@@ -173,6 +198,7 @@
             $$('cityid').setValue(1);
             var city = getCurrentCity();
             var country = getCurrentCountry();
+
             webix.ajax("../landmarks?city="+city+"&country="+country, function (text) {
                 var parsed = JSON.parse(text);
                 console.log(JSON.stringify(parsed.header));
@@ -201,6 +227,13 @@
                 $$('landmarkslistid').define('data', landmarksdata.header);
                 $$('landmarkslistid').refresh();
             });
+
+            webix.ajax("../reataurants?city="+city+"&country="+country,function (text) {
+                var parsed2 = JSON.parse(text);
+                restaurants = parsed2;
+                $$('restaurantsid').define('data', restaurants);
+                $$('restaurantsid').refresh();
+            });
         }
     });
 
@@ -211,6 +244,22 @@
             buttons: ["Ok"],
             width: "500px",
             text: landmarksdata.bodies[id - 1].description.toString()
+        });
+    });
+
+    $$("restaurantsid").attachEvent("onItemClick", function (id, e, node) {
+        var item = this.getItem(id);
+        var description;
+        if(restaurants[id-1].url != null){
+            description = restaurants[id-1].url.toString();
+        } else {
+            description = "No web address on file";
+        }
+        webix.modalbox({
+            title: restaurants[id - 1].name.toString(),
+            buttons: ["Ok"],
+            width: "500px",
+            text: description
         });
     });
 

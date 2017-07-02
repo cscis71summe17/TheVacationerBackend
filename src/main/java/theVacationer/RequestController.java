@@ -8,10 +8,14 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import theVacationer.model.Model;
 import theVacationer.model.geodata.*;
 import theVacationer.model.landmarks.Landmarks;
 import theVacationer.model.landmarks.Places;
+import theVacationer.model.retaurants.Response;
+import theVacationer.model.retaurants.Restaurants;
+import theVacationer.model.retaurants.Venue;
 import theVacationer.model.safetyInfo.SafetyInfo;
 import theVacationer.model.safetyInfo.SafetyNumber;
 
@@ -54,6 +58,17 @@ public class RequestController {
     @RequestMapping("/safetyinfo")
     public List<SafetyNumber> getSafetyinfo(@RequestParam(value="country")String country) throws Exception {
         return new SafetyInfo(country).getNumbers();
+    }
+
+    @RequestMapping("/reataurants")
+    public List<Venue> getRestaurants(@RequestParam(value="city") String city,
+                                   @RequestParam(value="country")String country) throws Exception {
+        RestTemplate response = new RestTemplate();
+        Restaurants restaurants = new Restaurants();
+        restaurants = response.getForObject("https://api.foursquare.com/v2/venues/search?query=restaurant&limit=5&v=20170701&client_id=ZWDQ4TMCCPQD4EGPFXUU0B1S0A1ESD5ATWDAGSIQQ0MHIYQ5&client_secret=VTCW04XIPQYL3MWMNSLX3ZIIFGZXIY5IGOXGK35PJGXON1M1&near="+city+","+country,
+                Restaurants.class);
+        System.out.println(response.toString());
+        return restaurants.getResponse().getVenues();
     }
 
     @RequestMapping("/gratuities")

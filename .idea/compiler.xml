@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="theVacationerBackend_main" target="1.8" />
+      <module name="TheVacationerBackend_main" target="1.8" />
+      <module name="TheVacationerBackend_test" target="1.8" />
       <module name="theVacationerBackend_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
