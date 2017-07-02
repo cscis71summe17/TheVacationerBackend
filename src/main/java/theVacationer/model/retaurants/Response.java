@@ -16,6 +16,11 @@ public class Response {
     }
 
     public List<Venue> getVenues() {
+        int i=1;
+        for (Venue vn: mVenues) {
+            vn.id = String.valueOf(i);
+            i++;
+        }
         return mVenues;
     }
 

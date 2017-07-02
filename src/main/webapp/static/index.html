@@ -269,7 +269,7 @@
         for (var key in countryData.cities) {
             var cityName = countryData.cities[key].toString();
             cityArray = cityArray.concat({id: i, value: cityName});
-            i = i + 1
+            i = i + 1;
         }
         return cityArray
     }
@@ -281,7 +281,7 @@
             var countryData = geodataList[key];
             var countryName = countryData.country.toString();
             countryArray = countryArray.concat({id: i, value: countryName});
-            i = i + 1
+            i = i + 1;
         }
         return countryArray
     }
