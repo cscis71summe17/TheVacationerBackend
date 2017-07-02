@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: ./vacationer.war
+  - source: ./build/libs/vacationer.war
     destination: /home/ec2-user
 hooks:
   ApplicationStop:
