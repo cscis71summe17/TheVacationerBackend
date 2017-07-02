@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: ./build/libs/vacationer.war
+    destination: /home/ec2-user
+hooks:
+  ApplicationStop:
+    - location: scripts/stop
+      timeout: 300
+  ApplicationStart:
+    - location: scripts/stop
+      timeout: 300
