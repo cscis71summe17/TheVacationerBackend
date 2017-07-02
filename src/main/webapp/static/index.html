@@ -230,8 +230,11 @@
 
             webix.ajax("../reataurants?city="+city+"&country="+country,function (text) {
                 var parsed2 = JSON.parse(text);
-                restaurants = parsed2;
+                restaurants = [];
                 $$('restaurantsid').define('data', restaurants);
+                $$('restaurantsid').refresh();
+                restaurants = parsed2;
+                $$('restaurantsid').define('data', []);
                 $$('restaurantsid').refresh();
             });
         }
