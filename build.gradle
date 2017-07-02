@@ -32,10 +32,11 @@ bootRun {
     addResources = true
 }
 
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
 dependencies {
+    compile('com.google.code.gson:gson:2.3.1')
     compile("org.springframework.boot:spring-boot-starter-web")
     compile('org.xerial:sqlite-jdbc:3.7.2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -45,5 +46,12 @@ dependencies {
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     testCompile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
-    compile 'com.google.code.gson:gson:2.3.1'
+    testCompile 'info.cukes:cucumber-java:1.2.4'
+    testCompile 'info.cukes:cucumber-junit:1.2.4'
+    testCompile 'junit:junit:4.12'
+
+}
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
