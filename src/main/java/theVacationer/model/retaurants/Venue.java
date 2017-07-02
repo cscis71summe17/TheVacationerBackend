@@ -19,6 +19,10 @@ public class Venue {
     private String mName;
     @SerializedName("url")
     private String mUrl;
+
+    @SerializedName("id")
+    public String id;
+
     public Venue() {
 
     }
@@ -56,5 +60,8 @@ public class Venue {
         mUrl = url;
     }
 
+    public String getId() {
+        return id;
+    }
 
 }
