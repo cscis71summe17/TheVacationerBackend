@@ -20,12 +20,11 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Peter on 7/2/2017.
  */
-public class MyStepdefs {
+public class vacationerStepdefs {
   @Given("^I have a scenario$")
   public void iHaveAScenario() throws Throwable {
     //na
   }
-
   @When("^I run the tests$")
   public void iRunTheTests() throws Throwable {
     //na
@@ -39,12 +38,14 @@ public class MyStepdefs {
   String city;
   Places pl;
   Restaurants resto;
-  @Given("^A specific location$")
-  public void aSpecificLocation() throws Throwable {
+
+  @Given("^A specific location of Paris, France$")
+  public void aSpecificLocationOfParisFrance() throws Throwable {
     String country = "France";
     String city = "Paris";
     resto = new Restaurants(country,city);
   }
+
   @When("^I chose to locate available restaurants$")
   public void iChoseToLocateAvailableRestaurants() throws Throwable {
     RestTemplate response = new RestTemplate();
