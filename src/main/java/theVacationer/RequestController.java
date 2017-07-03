@@ -22,8 +22,6 @@ import theVacationer.model.safetyInfo.SafetyNumber;
 @RestController
 public class RequestController {
 
-
-
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/geodata")
