@@ -20,7 +20,7 @@ public abstract class Model {
   //  public final String FILE_PATH = Model.class.getClassLoader().getResource( "vacationer.sqlite").getPath();
   public abstract ResultSet query(String query) throws Exception;
 
-  protected Connection getConnection() throws ClassNotFoundException, SQLException {
+  public static Connection getConnection() throws ClassNotFoundException, SQLException {
     Class.forName("org.postgresql.Driver");
     Connection db = DriverManager.getConnection(
             JDBC_POSTGRESQL_CONNECTION_PATH, POSTGRES_USER, POSTGRES_VACATION);
