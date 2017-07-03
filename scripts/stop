@@ -2,4 +2,3 @@ pidof  java >/dev/null
 if [[ $? -eq 0 ]] ; then
         ps aux | grep vacationer.war  | grep -v grep | awk '{print $2}' | sudo xargs kill -9
 fi
-rm -rf /home/ec2-user/vacationer.war
