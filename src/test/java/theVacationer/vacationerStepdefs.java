@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.web.client.RestTemplate;
 import theVacationer.model.Header;
+import theVacationer.model.landmarks.Landmark;
 import theVacationer.model.landmarks.Places;
 import theVacationer.model.retaurants.Restaurants;
 import theVacationer.model.retaurants.Venue;
@@ -97,9 +98,12 @@ public class vacationerStepdefs {
   @Then("^there are (\\d+) valid landmarks$")
   public void thereAreValidLandmarks(int arg0) throws Throwable {
     Iterator itr = pl.getLandmarkHeaderList().iterator();
+    Iterator itr_text = pl.getLandmarkList().iterator();
     while(itr.hasNext()) {
       String title = ((Header)itr.next()).title;
+      String description = ((Landmark)itr_text.next()).toString();
       assertNotNull(title);
+      assertNotNull(description);
     }
   }
 
