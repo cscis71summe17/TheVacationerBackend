@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by Alexander Dmitryukov on 7/2/2017.
@@ -29,7 +31,7 @@ public class ModelUnitTest {
     public void countryTest(){
         Countries ct = new Countries();
         assertNotNull(ct);
-        assertTrue(ct.getCountryList().size()>0);
+        assertThat(ct.getCountryList().size(), not(equalTo(0)));
     }
 
     @Test
@@ -37,7 +39,7 @@ public class ModelUnitTest {
         stringSample ="";
         Cities ct = new Cities(stringSample);
         assertNotNull(ct);
-        assertTrue(ct.getCityList().size()==0);
+        assertEquals(0,ct.getCityList().size());
     }
 
     @Test
@@ -45,7 +47,7 @@ public class ModelUnitTest {
         stringSample ="France";
         Cities ct = new Cities(stringSample);
         assertNotNull(ct);
-        assertTrue(ct.getCityList().size()>0);
+        assertThat(ct.getCityList().size(), not(equalTo(0)));
     }
 
 
@@ -62,14 +64,14 @@ public class ModelUnitTest {
         stringSample="";
         SafetyInfo sf = new SafetyInfo(stringSample);
         assertNotNull(sf);
-        assertTrue(sf.getNumbers().size()==0);
+        assertEquals(0,sf.getNumbers().size());
     }
 
     @Test
     public void safetyinfoTestIsPresent(){
         stringSample="Germany";
         SafetyInfo sf = new SafetyInfo(stringSample);
-        assertTrue(sf.getNumbers().size()>0);
+        assertThat(sf.getNumbers().size(), not(equalTo(0)));
     }
 
     @Test
@@ -122,7 +124,7 @@ public class ModelUnitTest {
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
-        assertTrue(sf.getLandmarkList().size()>0);
+        assertThat(sf.getLandmarkList().size(), not(equalTo(0)));
     }
 
     @Test
@@ -130,7 +132,7 @@ public class ModelUnitTest {
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
-        assertTrue(sf.getLandmarkHeaderList().size()>0);
+        assertThat(sf.getLandmarkHeaderList().size(), not(equalTo(0)));
     }
 
     @Test
