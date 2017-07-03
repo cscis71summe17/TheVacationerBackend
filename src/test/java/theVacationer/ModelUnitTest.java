@@ -33,7 +33,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void cityTest_empty(){
+    public void cityTestIsEmpty(){
         stringSample ="";
         Cities ct = new Cities(stringSample);
         assertNotNull(ct);
@@ -41,7 +41,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void cityTest_present(){
+    public void cityTestIsPresent(){
         stringSample ="France";
         Cities ct = new Cities(stringSample);
         assertNotNull(ct);
@@ -51,14 +51,14 @@ public class ModelUnitTest {
 
     //Emergency numbers API tests
     @Test
-    public void safetyinfoTest_notNull() {
+    public void safetyinfoTestNotNull() {
         stringSample="";
         SafetyInfo sf = new SafetyInfo(stringSample);
         assertNotNull(sf);
     }
 
     @Test
-    public void safetyinfoTest_empty() {
+    public void safetyinfoTestIsEmpty() {
         stringSample="";
         SafetyInfo sf = new SafetyInfo(stringSample);
         assertNotNull(sf);
@@ -66,14 +66,14 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void safetyinfoTest_present(){
+    public void safetyinfoTestIsPresent(){
         stringSample="Germany";
         SafetyInfo sf = new SafetyInfo(stringSample);
         assertTrue(sf.getNumbers().size()>0);
     }
 
     @Test
-    public void safetyinfoTest_emergencyServicesPresentNotNullNotEmpty(){
+    public void safetyinfoTestEmergencyServicesPresentNotNullNotEmpty(){
         stringSample="Italy";
         intSample=0;
         SafetyInfo sf = new SafetyInfo(stringSample);
@@ -83,7 +83,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void safetyinfoTest_policePresentNotNullNotEmpty(){
+    public void safetyinfoTestPolicePresentNotNullNotEmpty(){
         stringSample="Italy";
         intSample=1;
         SafetyInfo sf = new SafetyInfo(stringSample);
@@ -93,7 +93,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void safetyinfoTest_medicalHelpPresentNotNullNotEmpty(){
+    public void safetyinfoTestMedicalHelpPresentNotNullNotEmpty(){
         stringSample="Italy";
         intSample=2;
         SafetyInfo sf = new SafetyInfo(stringSample);
@@ -104,21 +104,21 @@ public class ModelUnitTest {
 
     //Landmarks
     @Test
-    public void landmarkTest_notNull() {
+    public void landmarkTestNotNull() {
         stringSample="";
         Places sf = new Places(stringSample, stringSample2 );
         assertNotNull(sf);
     }
 
     @Test
-    public void landmarkTest_empty() {
+    public void landmarkTestEmpty() {
         stringSample="";
         Places sf = new Places(stringSample, stringSample2 );
         assertTrue(sf.getLandmarkList().size()==0);
     }
 
     @Test
-    public void landmarkTest_presentBody(){
+    public void landmarkTestPresentBody(){
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
@@ -126,7 +126,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void landmarkTest_presentHeader(){
+    public void landmarkTestPresentHeader(){
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
@@ -134,7 +134,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void landmarkTest_headerPresentNotNullNotEmpty(){
+    public void landmarkTestHeaderPresentNotNullNotEmpty(){
         stringSample="Italy";
         stringSample2="Rome";
         intSample=0;
@@ -144,7 +144,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void landmarkTest_bodyPresentNotNullNotEmpty(){
+    public void landmarkTestBodyPresentNotNullNotEmpty(){
         stringSample="Italy";
         stringSample2="Rome";
         intSample=0;
@@ -155,21 +155,21 @@ public class ModelUnitTest {
 
     //Restaurant
     @Test
-    public void restaurantTest_notNull() {
+    public void restaurantTestNotNull() {
         stringSample="";
         Places sf = new Places(stringSample, stringSample2 );
         assertNotNull(sf);
     }
 
     @Test
-    public void restaurantTest_empty() {
+    public void restaurantTestIsEmpty() {
         stringSample="";
         Places sf = new Places(stringSample, stringSample2 );
         assertTrue(sf.getLandmarkList().size()==0);
     }
 
     @Test
-    public void restaurantTest_presentBody(){
+    public void restaurantTestisPresentBody(){
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
@@ -177,7 +177,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void restaurantTest_presentHeader(){
+    public void restaurantTestisPresentHeader(){
         stringSample="Germany";
         stringSample2="Munich";
         Places sf = new Places(stringSample, stringSample2 );
@@ -185,7 +185,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void restaurantTest_headerPresentNotNullNotEmpty(){
+    public void restaurantTestHeaderPresentNotNullNotEmpty(){
         stringSample="Italy";
         stringSample2="Rome";
         intSample=0;
@@ -195,7 +195,7 @@ public class ModelUnitTest {
     }
 
     @Test
-    public void restaurantTest_bodyPresentNotNullNotEmpty(){
+    public void restaurantTestBodyPresentNotNullNotEmpty(){
         stringSample="Italy";
         stringSample2="Rome";
         intSample=0;
