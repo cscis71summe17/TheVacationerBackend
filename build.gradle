@@ -19,8 +19,7 @@ jar {
 }
 
 war {
-    baseName = 'TheVacationerWar'
-    version = '0.1.0'
+    baseName = 'vacationer'
 }
 
 
@@ -32,13 +31,28 @@ bootRun {
     addResources = true
 }
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+
+
 dependencies {
     compile('com.google.code.gson:gson:2.3.1')
     compile("org.springframework.boot:spring-boot-starter-web")
     compile('org.xerial:sqlite-jdbc:3.7.2')
+    compile('org.apache.tomcat.embed:tomcat-embed-el:8.0.28')
+    compile('org.apache.tomcat.embed:tomcat-embed-core:8.5.14')
+    testCompile('org.apache.tomcat.embed:tomcat-embed-el:8.0.28')
+    testCompile('org.apache.tomcat.embed:tomcat-embed-core:8.5.14')
+    providedRuntime('org.apache.tomcat.embed:tomcat-embed-core:8.5.14')
+    providedRuntime('org.apache.tomcat.embed:tomcat-embed-el:8.0.28')
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.3.RELEASE'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.3.RELEASE'
+    providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.3.RELEASE'
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')
     compile("org.springframework.boot:spring-boot-starter-web")
