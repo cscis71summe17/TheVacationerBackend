@@ -8,5 +8,5 @@ hooks:
     - location: scripts/stop
       timeout: 300
   ApplicationStart:
-    - location: scripts/stop
+    - location: scripts/start
       timeout: 300
