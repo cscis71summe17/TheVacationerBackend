@@ -1,1 +1,1 @@
-java -jar ../build/libs/vacationer.war > /home/ec2-user/output.log 2>&1 &
+java -jar /home/ec2-user/libs/vacationer.war > /home/ec2-user/output.log 2>&1 &
