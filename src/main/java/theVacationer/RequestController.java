@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import theVacationer.model.Model;
 import theVacationer.model.geodata.*;
+import theVacationer.model.landmarks.Landmark;
 import theVacationer.model.landmarks.Landmarks;
 import theVacationer.model.landmarks.Places;
 import theVacationer.model.retaurants.Response;
@@ -22,6 +23,8 @@ import theVacationer.model.retaurants.Restaurants;
 import theVacationer.model.retaurants.Venue;
 import theVacationer.model.safetyInfo.SafetyInfo;
 import theVacationer.model.safetyInfo.SafetyNumber;
+
+import javax.jws.WebParam;
 
 import static theVacationer.model.Model.*;
 
@@ -66,8 +69,11 @@ public class RequestController {
                                   @RequestParam(value="country")String country) throws Exception {
         //TODO Query Landmark from DB with country/city and return Landmarks instead of Country, Landmark class is empty
         //To test RUN and in web browser go to http://localhost:8080/landmarks?city=boston&country=USA
-      Places pl = new Places(country,city);
-      return new Landmarks(pl.getLandmarkList(),pl.getLandmarkHeaderList());
+      Connection connection = Model.getConnection();
+      Places pl = new Places(country,city, connection.createStatement());
+      Landmarks landmarks = new Landmarks(pl.getLandmarkList(),pl.getLandmarkHeaderList());
+      connection.close();
+      return landmarks;
     }
 
     @RequestMapping("/safetyinfo")

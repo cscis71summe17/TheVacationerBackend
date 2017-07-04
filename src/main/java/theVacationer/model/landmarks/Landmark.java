@@ -5,7 +5,8 @@ package theVacationer.model.landmarks;
  */
 public class Landmark {
     public String description;
-    public Landmark() {
+    public Landmark(String desc) {
+        description = desc;
     }
     @Override
     public String toString() {

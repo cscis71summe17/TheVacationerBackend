@@ -19,6 +19,9 @@ import theVacationer.model.Model;
 import theVacationer.model.geodata.Cities;
 import theVacationer.model.geodata.Countries;
 import theVacationer.model.safetyInfo.SafetyInfo;
+import theVacationer.model.Header;
+import theVacationer.model.landmarks.Landmark;
+import theVacationer.model.landmarks.Places;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelUnitTestsMocked {
@@ -223,6 +226,25 @@ public class ModelUnitTestsMocked {
             SafetyInfo ct = new SafetyInfo(stringSample, s);
 
             verify(rs, times(1)).getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void landmarksTestQueryVerification() {
+        try {
+            String country = "Germany";
+            String city = "Munich";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            String str =
+                    "SELECT A.name, A.description FROM Landmarks AS A, Country AS B, City AS C WHERE A.country_id = B.id AND A.city_id = C.id AND B.name = 'Germany' AND C.name = 'Munich';";
+
+            Places ct = new Places(country, city, s);
+
+            verify(s, times(1)).executeQuery(str);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -242,6 +264,27 @@ public class ModelUnitTestsMocked {
             Cities ct = new Cities(stringSample, s);
 
             verify(s, times(1)).executeQuery(str);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void landmarkSinglePlaceHeaderVerification() {
+        try {
+            String country = "France";
+            String city = "Paris";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.getString(1)).thenReturn("Tower");
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Places ct = new Places(country, city, s);
+
+            assertNotNull(ct);
+            assertTrue(ct.getLandmarkHeaderList().contains(new Header(1, "Tower")));
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -274,6 +317,28 @@ public class ModelUnitTestsMocked {
             assertTrue(ct.getNumbers().get(0).getDescription().contains("All Serivces"));
             assertTrue(ct.getNumbers().get(1).getDescription().contains("Police"));
             assertTrue(ct.getNumbers().get(2).getDescription().contains("Medical Help"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void landmarkSinglePlaceDescriptionVerification() {
+        try {
+            String country = "France";
+            String city = "Paris";
+
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1)).thenReturn("The highest place in the city");
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Places ct = new Places(country, city, s);
+
+            assertNotNull(ct);
+            assertTrue(ct.getLandmarkList().contains(new Landmark("The highest place in the city")));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -307,6 +372,28 @@ public class ModelUnitTestsMocked {
             assertNotNull(ct.getNumbers().get(0).getNumber());
             assertNotNull(ct.getNumbers().get(1).getNumber());
             assertNotNull(ct.getNumbers().get(2).getNumber());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void landmarkTestIndexVerification() {
+        try {
+            String country = "France";
+            String city = "Paris";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Places ct = new Places(country, city, s);
+
+            verify(rs, times(1)).getString(1);
+            verify(rs, times(1)).getString(2);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
