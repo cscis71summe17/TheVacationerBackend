@@ -29,11 +29,11 @@ public class ModelUnitTest {
     int intSample = 1;
 
     @Test
-    public void countryTest(){
-        Countries ct = new Countries();
-        assertNotNull(ct);
-        assertThat(ct.getCountryList().size(), not(equalTo(0)));
-    }
+//    public void countryTest(){
+//        Countries ct = new Countries();
+//        assertNotNull(ct);
+//        assertThat(ct.getCountryList().size(), not(equalTo(0)));
+//    }
 //
 //    @Test
 //    public void cityTestIsEmpty(){
@@ -92,7 +92,7 @@ public class ModelUnitTest {
 //    }
 
     //Emergency numbers API tests
-    @Test
+//    @Test
     public void safetyinfoTestNotNull() {
         stringSample="";
         SafetyInfo sf = new SafetyInfo(stringSample);

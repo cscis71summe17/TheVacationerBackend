@@ -33,13 +33,14 @@ public class RequestController {
         //Mocking Data add DB query
         //TODO Pete, please query from DB
         //To test RUN and in web browser go to http://localhost:8080/geodata
-        Countries c = new Countries();
-        Iterator itr = c.getCountryList().iterator();
-        List<Country> countryList = new ArrayList<Country>();
 
-        Connection con  = null;
+        Connection con = null;
+        Geodata geoDataList = null;
         try {
             con = Model.getConnection();
+            Countries c = new Countries(con.createStatement());
+            Iterator itr = c.getCountryList().iterator();
+            List<Country> countryList = new ArrayList<Country>();
             while(itr.hasNext()) {
                 String country = (String)itr.next();
                 Cities city = new Cities(country, con.createStatement());
@@ -47,6 +48,7 @@ public class RequestController {
                 Country mockCountry = new Country(country,cityList);
                 countryList.add(mockCountry);
             }
+            geoDataList = new Geodata(countryList);
             con.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -54,7 +56,6 @@ public class RequestController {
             e.printStackTrace();
         }
 
-        Geodata geoDataList = new Geodata(countryList);
         return geoDataList;
     }
 

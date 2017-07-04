@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import theVacationer.model.geodata.Cities;
+import theVacationer.model.geodata.Countries;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelUnitTestsMocked {
@@ -111,4 +112,94 @@ public class ModelUnitTestsMocked {
         }
     }
 
+    @Test
+    public void countryTestPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.getString(2)).thenReturn(stringSample);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Countries ct = new Countries(s);
+            assertNotNull(ct);
+            assertTrue(ct.getCountryList().contains(stringSample));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void countryTestExactSizedMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.getString(2)).thenReturn(stringSample);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Countries ct = new Countries(s);
+            assertNotNull(ct);
+            assertTrue(ct.getCountryList().size() == 1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void countryTestMultiCountryPresentMocked() {
+        try {
+
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(2))
+                    .thenReturn("France")
+                    .thenReturn("Spain")
+                    .thenReturn("Germany");
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            Countries ct = new Countries(s);
+            assertNotNull(ct);
+            assertTrue(ct.getCountryList().contains("Germany"));
+            assertTrue(ct.getCountryList().contains("Spain"));
+            assertTrue(ct.getCountryList().contains("France"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Test
+    public void countryTestQueryVerification() {
+        try {
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            String str =
+                    "SELECT * FROM Country;";
+
+            Countries ct = new Countries(s);
+
+            verify(s, times(1)).executeQuery(str);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
