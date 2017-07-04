@@ -24,7 +24,7 @@ import theVacationer.model.landmarks.Landmark;
 import theVacationer.model.landmarks.Places;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ModelUnitTestsMocked {
+public class ModelUnitTests {
 
     public final String COUNTRY_TABLE = "Country";
     public final String SAFETYINFO_TABLE = "SafetyInfo";
