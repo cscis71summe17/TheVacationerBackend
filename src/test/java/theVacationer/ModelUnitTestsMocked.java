@@ -55,6 +55,8 @@ public class ModelUnitTestsMocked {
             String stringSample ="France";
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
 
             String str =
                     "SELECT A.name FROM  City AS A, Country AS B WHERE A.country_id = B.id AND B.name LIKE 'France';";
@@ -237,6 +239,8 @@ public class ModelUnitTestsMocked {
         try {
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
 
             String str =
                     "SELECT * FROM Country;";
@@ -276,6 +280,8 @@ public class ModelUnitTestsMocked {
             String city = "Munich";
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
 
             String str =
                     "SELECT A.name, A.description FROM Landmarks AS A, Country AS B, City AS C WHERE A.country_id = B.id AND A.city_id = C.id AND B.name = 'Germany' AND C.name = 'Munich';";
@@ -295,11 +301,13 @@ public class ModelUnitTestsMocked {
             String stringSample ="France";
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
 
             String str ="SELECT A.number, A.description " +
                     "FROM  " + SAFETYINFO_TABLE + " AS A, " + COUNTRY_TABLE + " AS B " +
                     "WHERE A.country_id = B.id AND B.name LIKE '" + stringSample + "';";
-            Cities ct = new Cities(stringSample, s);
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
 
             verify(s, times(1)).executeQuery(str);
         } catch (SQLException e) {
@@ -394,7 +402,7 @@ public class ModelUnitTestsMocked {
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
-            when(rs.getString(1))
+            when(rs.getString(2))
                     .thenReturn("All Serivces")
                     .thenReturn("Police")
                     .thenReturn("Medical Help");
@@ -409,6 +417,62 @@ public class ModelUnitTestsMocked {
             assertTrue(ct.getNumbers().get(0).getDescription().contains("All Serivces"));
             assertTrue(ct.getNumbers().get(1).getDescription().contains("Police"));
             assertTrue(ct.getNumbers().get(2).getDescription().contains("Medical Help"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoTestNumberPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("111")
+                    .thenReturn("222")
+                    .thenReturn("333");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+            assertTrue(ct.getNumbers().get(0).getNumber().contains("111"));
+            assertTrue(ct.getNumbers().get(1).getNumber().contains("222"));
+            assertTrue(ct.getNumbers().get(2).getNumber().contains("333"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoTestFullInfoPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("111");
+
+            when(rs.getString(2))
+                    .thenReturn("Police");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+            assertTrue(ct.getNumbers().get(0).getNumber().contains("111"));
+            assertTrue(ct.getNumbers().get(0).getDescription().contains("Police"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -14,10 +14,11 @@ import java.util.List;
  */
 public class SafetyInfo extends Model {
     List<SafetyNumber> numbers;
-    Statement st;
+    Statement statement;
 
     public SafetyInfo(String country, Statement st){
         try {
+            statement = st;
             numbers = new ArrayList<SafetyNumber>();
             ResultSet results = query(country);
             int currentId = 1;
@@ -39,13 +40,11 @@ public class SafetyInfo extends Model {
 
     @Override
     public ResultSet query(String country) throws Exception {
-        Connection db = getConnection();
-        Statement stmt = db.createStatement();
         String str =
                 "SELECT A.number, A.description " +
                         "FROM  " + SAFETYINFO_TABLE + " AS A, " + COUNTRY_TABLE + " AS B " +
                         "WHERE A.country_id = B.id AND B.name LIKE '" + country + "';";
-        return stmt.executeQuery(str);
+        return statement.executeQuery(str);
     }
 
     public void setNumbers(List<SafetyNumber> numbers) {
