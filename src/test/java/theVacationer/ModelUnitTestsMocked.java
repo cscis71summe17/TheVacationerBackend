@@ -249,6 +249,34 @@ public class ModelUnitTestsMocked {
     }
 
     @Test
+    public void safetyInfoNotNullMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("All Serivces")
+                    .thenReturn("Police")
+                    .thenReturn("Medical Help");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+            assertNotNull(ct);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void safetyInfoDescriptionPresentMocked() {
         try {
             String stringSample ="France";
