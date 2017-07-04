@@ -34,62 +34,62 @@ public class ModelUnitTest {
         assertNotNull(ct);
         assertThat(ct.getCountryList().size(), not(equalTo(0)));
     }
-
-    @Test
-    public void cityTestIsEmpty(){
-        stringSample ="";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertEquals(0,ct.getCityList().size());
-    }
-
-    @Test
-    public void cityTestIsPresent(){
-        stringSample ="France";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertThat(ct.getCityList().size(), not(equalTo(0)));
-    }
-
-    @Test
-    public void cityTestFranceCapitalPresent(){
-        stringSample ="France";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertTrue(ct.getCityList().contains("Paris"));
-    }
-
-    @Test
-    public void cityTestItalyCapitalPresent(){
-        stringSample ="Italy";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertTrue(ct.getCityList().contains("Rome"));
-    }
-
-    @Test
-    public void cityTestGermanyCapitalPresent(){
-        stringSample ="Germany";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertTrue(ct.getCityList().contains("Munich"));
-    }
-
-    @Test
-    public void cityTestSpainCapitalPresent(){
-        stringSample ="Spain";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertTrue(ct.getCityList().contains("Madrid"));
-    }
-
-    @Test
-    public void cityTestUkCapitalPresent(){
-        stringSample ="United Kingdom";
-        Cities ct = new Cities(stringSample);
-        assertNotNull(ct);
-        assertTrue(ct.getCityList().contains("London"));
-    }
+//
+//    @Test
+//    public void cityTestIsEmpty(){
+//        stringSample ="";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertEquals(0,ct.getCityList().size());
+//    }
+//
+//    @Test
+//    public void cityTestIsPresent(){
+//        stringSample ="France";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertThat(ct.getCityList().size(), not(equalTo(0)));
+//    }
+//
+//    @Test
+//    public void cityTestFranceCapitalPresent(){
+//        stringSample ="France";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertTrue(ct.getCityList().contains("Paris"));
+//    }
+//
+//    @Test
+//    public void cityTestItalyCapitalPresent(){
+//        stringSample ="Italy";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertTrue(ct.getCityList().contains("Rome"));
+//    }
+//
+//    @Test
+//    public void cityTestGermanyCapitalPresent(){
+//        stringSample ="Germany";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertTrue(ct.getCityList().contains("Munich"));
+//    }
+//
+//    @Test
+//    public void cityTestSpainCapitalPresent(){
+//        stringSample ="Spain";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertTrue(ct.getCityList().contains("Madrid"));
+//    }
+//
+//    @Test
+//    public void cityTestUkCapitalPresent(){
+//        stringSample ="United Kingdom";
+//        Cities ct = new Cities(stringSample);
+//        assertNotNull(ct);
+//        assertTrue(ct.getCityList().contains("London"));
+//    }
 
     //Emergency numbers API tests
     @Test

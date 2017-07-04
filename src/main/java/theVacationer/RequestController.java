@@ -1,5 +1,7 @@
 package theVacationer;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -19,6 +21,8 @@ import theVacationer.model.retaurants.Venue;
 import theVacationer.model.safetyInfo.SafetyInfo;
 import theVacationer.model.safetyInfo.SafetyNumber;
 
+import static theVacationer.model.Model.*;
+
 @RestController
 public class RequestController {
 
@@ -32,12 +36,22 @@ public class RequestController {
         Countries c = new Countries();
         Iterator itr = c.getCountryList().iterator();
         List<Country> countryList = new ArrayList<Country>();
-        while(itr.hasNext()) {
-            String country = (String)itr.next();
-            Cities city = new Cities(country);
-            List<String > cityList = city.getCityList();
-            Country mockCountry = new Country(country,cityList);
-            countryList.add(mockCountry);
+
+        Connection con  = null;
+        try {
+            con = Model.getConnection();
+            while(itr.hasNext()) {
+                String country = (String)itr.next();
+                Cities city = new Cities(country, con.createStatement());
+                List<String > cityList = city.getCityList();
+                Country mockCountry = new Country(country,cityList);
+                countryList.add(mockCountry);
+            }
+            con.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         Geodata geoDataList = new Geodata(countryList);
