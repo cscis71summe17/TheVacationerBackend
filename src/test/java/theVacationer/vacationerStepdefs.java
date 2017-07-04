@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.web.client.RestTemplate;
 import theVacationer.model.Header;
+import theVacationer.model.Model;
 import theVacationer.model.landmarks.Landmark;
 import theVacationer.model.landmarks.Places;
 import theVacationer.model.retaurants.Restaurants;
@@ -92,7 +93,7 @@ public class vacationerStepdefs {
 
   @When("^I chose to locate top landmarks$")
   public void iChoseToLocateTopLandmarks() throws Throwable {
-    pl = new Places(country,city);
+    pl = new Places(country,city, Model.getConnection().createStatement());
   }
 
   @Then("^there are (\\d+) valid landmarks$")
@@ -109,7 +110,7 @@ public class vacationerStepdefs {
 
   @When("^I chose to locate landmark information$")
   public void iChoseToLocateLandmarkInformation() throws Throwable {
-    pl = new Places(country,city);
+    pl = new Places(country,city, Model.getConnection().createStatement());
   }
 
   @Then("^the system should return  \"([^\"]*)\" landmarks$")

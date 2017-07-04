@@ -21,17 +21,19 @@ public class Places extends Model {
   private final String LANDMARK_TABLE = "Landmarks";
   List<Landmark> landmarkList;
   List<Header> landmarkHeaderList;
+  Statement statement;
 
-  public Places (String country,String city) {
+  public Places (String country,String city, Statement st) {
     try {
+      statement = st;
       landmarkList = new ArrayList<Landmark>();
       landmarkHeaderList = new ArrayList<Header>();
       ResultSet results = query(country,city);
       int i = 1;
       while (results.next()) {
-        Landmark place = new Landmark();
+        Landmark place = null;
         String name = results.getString(1);
-        place.description = results.getString(2);
+        place = new Landmark(results.getString(2));
         landmarkList.add(place);
         landmarkHeaderList.add(new Header(i,name));
         i++;
@@ -42,20 +44,21 @@ public class Places extends Model {
       System.out.println(e.getMessage());
     }
   }
+
   public ResultSet query(String query) throws Exception {
     return null;
   }
+
   public ResultSet query(String country,String city) throws Exception {
-    Connection db = getConnection();
-    Statement stmt = db.createStatement();
     String str =
       "SELECT A.name, A.description " +
       "FROM " + LANDMARK_TABLE + " AS A, " +
                  COUNTRY_TABLE + " AS B, " + CITY_TABLE + " AS C " +
        "WHERE A.country_id = B.id AND A.city_id = C.id AND B.name = '" +
               country + "' AND C.name = '"+ city+"';";
-    return stmt.executeQuery(str);
+    return statement.executeQuery(str);
   }
+
   public List<Landmark> getLandmarkList() {
     return landmarkList;
   }

@@ -145,6 +145,7 @@ public class ModelUnitTest {
     }
 
     //Landmarks
+<<<<<<< Updated upstream
     @Test
     public void landmarkTestNotNull() {
         stringSample="";
@@ -246,4 +247,106 @@ public class ModelUnitTest {
                 & !sf.getLandmarkList().get(intSample).description.isEmpty());
     }
     */
+
+//    @Test
+//    public void landmarkTestNotNull() {
+//        stringSample="";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertNotNull(sf);
+//    }
+//
+//    @Test
+//    public void landmarkTestEmpty() {
+//        stringSample="";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkList().size()==0);
+//    }
+//
+//    @Test
+//    public void landmarkTestPresentBody(){
+//        stringSample="Germany";
+//        stringSample2="Munich";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertThat(sf.getLandmarkList().size(), not(equalTo(0)));
+//    }
+//
+//    @Test
+//    public void landmarkTestPresentHeader(){
+//        stringSample="Germany";
+//        stringSample2="Munich";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertThat(sf.getLandmarkHeaderList().size(), not(equalTo(0)));
+//    }
+//
+//    @Test
+//    public void landmarkTestHeaderPresentNotNullNotEmpty(){
+//        stringSample="Italy";
+//        stringSample2="Rome";
+//        intSample=0;
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue((sf.getLandmarkHeaderList().get(intSample).title != null)
+//                & !sf.getLandmarkHeaderList().get(intSample).title.isEmpty());
+//    }
+//
+//    @Test
+//    public void landmarkTestBodyPresentNotNullNotEmpty(){
+//        stringSample="Italy";
+//        stringSample2="Rome";
+//        intSample=0;
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue((sf.getLandmarkList().get(intSample).description != null)
+//                & !sf.getLandmarkList().get(intSample).description.isEmpty());
+//    }
+//
+//    //Restaurant
+//    @Test
+//    public void restaurantTestNotNull() {
+//        stringSample="";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertNotNull(sf);
+//    }
+//
+//    @Test
+//    public void restaurantTestIsEmpty() {
+//        stringSample="";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkList().size()==0);
+//    }
+//
+//    @Test
+//    public void restaurantTestisPresentBody(){
+//        stringSample="Germany";
+//        stringSample2="Munich";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkList().size()>0);
+//    }
+//
+//    @Test
+//    public void restaurantTestisPresentHeader(){
+//        stringSample="Germany";
+//        stringSample2="Munich";
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkHeaderList().size()>0);
+//    }
+//
+//    @Test
+//    public void restaurantTestHeaderPresentNotNullNotEmpty(){
+//        stringSample="Italy";
+//        stringSample2="Rome";
+//        intSample=0;
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkHeaderList().get(intSample).title !=null
+//                & !sf.getLandmarkHeaderList().get(intSample).title.isEmpty());
+//    }
+//
+//    @Test
+//    public void restaurantTestBodyPresentNotNullNotEmpty(){
+//        stringSample="Italy";
+//        stringSample2="Rome";
+//        intSample=0;
+//        Places sf = new Places(stringSample, stringSample2 );
+//        assertTrue(sf.getLandmarkList().get(intSample).description !=null
+//                & !sf.getLandmarkList().get(intSample).description.isEmpty());
+//    }
+
 }
