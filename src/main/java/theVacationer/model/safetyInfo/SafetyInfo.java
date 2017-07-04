@@ -14,8 +14,9 @@ import java.util.List;
  */
 public class SafetyInfo extends Model {
     List<SafetyNumber> numbers;
+    Statement st;
 
-    public SafetyInfo(String country) {
+    public SafetyInfo(String country, Statement st){
         try {
             numbers = new ArrayList<SafetyNumber>();
             ResultSet results = query(country);

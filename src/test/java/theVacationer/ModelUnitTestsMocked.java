@@ -15,11 +15,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import theVacationer.model.Model;
 import theVacationer.model.geodata.Cities;
 import theVacationer.model.geodata.Countries;
+import theVacationer.model.safetyInfo.SafetyInfo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelUnitTestsMocked {
+
+    public final String COUNTRY_TABLE = "Country";
+    public final String SAFETYINFO_TABLE = "SafetyInfo";
 
     @Test
     public void cityTestIndexVerification() {
@@ -202,4 +207,109 @@ public class ModelUnitTestsMocked {
             e.printStackTrace();
         }
     }
+
+
+    @Test
+    public void safetyinfoTestIndexVerification() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+
+            verify(rs, times(1)).getString(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoTestQueryVerification() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            String str ="SELECT A.number, A.description " +
+                    "FROM  " + SAFETYINFO_TABLE + " AS A, " + COUNTRY_TABLE + " AS B " +
+                    "WHERE A.country_id = B.id AND B.name LIKE '" + stringSample + "';";
+            Cities ct = new Cities(stringSample, s);
+
+            verify(s, times(1)).executeQuery(str);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoDescriptionPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("All Serivces")
+                    .thenReturn("Police")
+                    .thenReturn("Medical Help");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+            assertNotNull(ct);
+            assertTrue(ct.getNumbers().size()>=3);
+            assertTrue(ct.getNumbers().get(0).getDescription().contains("All Serivces"));
+            assertTrue(ct.getNumbers().get(1).getDescription().contains("Police"));
+            assertTrue(ct.getNumbers().get(2).getDescription().contains("Medical Help"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void safetyInfoTestNumbersNotNullMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("All Serivces")
+                    .thenReturn("Police")
+                    .thenReturn("Medical Help");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
+            assertNotNull(ct);
+            assertTrue(ct.getNumbers().size()>=3);
+            assertNotNull(ct.getNumbers().get(0).getNumber());
+            assertNotNull(ct.getNumbers().get(1).getNumber());
+            assertNotNull(ct.getNumbers().get(2).getNumber());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

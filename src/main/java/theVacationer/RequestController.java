@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,12 +72,18 @@ public class RequestController {
 
     @RequestMapping("/safetyinfo")
     public List<SafetyNumber> getSafetyinfo(@RequestParam(value="country")String country) throws Exception {
-        return new SafetyInfo(country).getNumbers();
+        Connection con = null;
+        con = Model.getConnection();
+        List<SafetyNumber> sf = new SafetyInfo(country, con.createStatement()).getNumbers();
+        if(con != null)
+            con.close();
+        return sf;
     }
 
     @RequestMapping("/reataurants")
     public List<Venue> getRestaurants(@RequestParam(value="city") String city,
                                    @RequestParam(value="country")String country) throws Exception {
+        Connection con = null;
         RestTemplate response = new RestTemplate();
         Restaurants restaurants = new Restaurants();
         restaurants = response.getForObject("https://api.foursquare.com/v2/venues/search?query=restaurant&limit=5&v=20170701&client_id=ZWDQ4TMCCPQD4EGPFXUU0B1S0A1ESD5ATWDAGSIQQ0MHIYQ5&client_secret=VTCW04XIPQYL3MWMNSLX3ZIIFGZXIY5IGOXGK35PJGXON1M1&near="+city+","+country,
