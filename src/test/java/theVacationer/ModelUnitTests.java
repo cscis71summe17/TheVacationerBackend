@@ -26,13 +26,27 @@ import theVacationer.model.landmarks.Places;
 @RunWith(MockitoJUnitRunner.class)
 public class ModelUnitTests {
 
+    public static final String FRANCE = "France";
+    public static final String PARIS = "Paris";
+    public static final String MARSELLE = "Marselle";
+    public static final String LYON = "Lyon";
+    public static final String SPAIN = "Spain";
+    public static final String GERMANY = "Germany";
+    public static final String MUNICH = "Munich";
+    public static final String ALL_SERIVCES = "All Serivces";
+    public static final String POLICE = "Police";
+    public static final String MEDICAL_HELP = "Medical Help";
+    public static final String FIRST_SAFETY_NUMBER = "111";
+    public static final String SECOND_SAFETY_NUMBER = "222";
+    public static final String THIRD_SAFETY_NUMBER = "333";
+    public static final String FIRST_LANDMARK_DESCRIPTION = "The highest place in the city";
     public final String COUNTRY_TABLE = "Country";
     public final String SAFETYINFO_TABLE = "SafetyInfo";
 
     @Test
     public void cityTestIndexVerification() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -52,7 +66,7 @@ public class ModelUnitTests {
     @Test
     public void cityTestQueryVerification() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
             when(s.executeQuery(anyString())).thenReturn(rs);
@@ -73,16 +87,16 @@ public class ModelUnitTests {
     @Test
     public void cityTestMultiCityNotNulltMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("Paris")
-                    .thenReturn("Marselle")
-                    .thenReturn("Lyon");
+                    .thenReturn(PARIS)
+                    .thenReturn(MARSELLE)
+                    .thenReturn(LYON);
 
             when(rs.next()).thenReturn(true)
                     .thenReturn(true)
@@ -100,16 +114,16 @@ public class ModelUnitTests {
     @Test
     public void cityTestMultiCityPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("Paris")
-                    .thenReturn("Marselle")
-                    .thenReturn("Lyon");
+                    .thenReturn(PARIS)
+                    .thenReturn(MARSELLE)
+                    .thenReturn(LYON);
 
             when(rs.next()).thenReturn(true)
                     .thenReturn(true)
@@ -117,9 +131,9 @@ public class ModelUnitTests {
                     .thenReturn(false);
 
             Cities ct = new Cities(stringSample, s);
-            assertTrue(ct.getCityList().contains("Paris"));
-            assertTrue(ct.getCityList().contains("Marselle"));
-            assertTrue(ct.getCityList().contains("Lyon"));
+            assertTrue(ct.getCityList().contains(PARIS));
+            assertTrue(ct.getCityList().contains(MARSELLE));
+            assertTrue(ct.getCityList().contains(LYON));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,17 +143,17 @@ public class ModelUnitTests {
     @Test
     public void cityTestFranceCapitalPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
-            when(rs.getString(1)).thenReturn("Paris");
+            when(rs.getString(1)).thenReturn(PARIS);
             when(rs.next()).thenReturn(true).thenReturn(false);
 
             Cities ct = new Cities(stringSample, s);
             assertNotNull(ct);
-            assertTrue(ct.getCityList().contains("Paris"));
+            assertTrue(ct.getCityList().contains(PARIS));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -149,7 +163,7 @@ public class ModelUnitTests {
     @Test
     public void countryTestNotNullMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -168,7 +182,7 @@ public class ModelUnitTests {
     @Test
     public void countryTestPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -187,7 +201,7 @@ public class ModelUnitTests {
     @Test
     public void countryTestExactSizedMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -214,9 +228,9 @@ public class ModelUnitTests {
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(2))
-                    .thenReturn("France")
-                    .thenReturn("Spain")
-                    .thenReturn("Germany");
+                    .thenReturn(FRANCE)
+                    .thenReturn(SPAIN)
+                    .thenReturn(GERMANY);
 
             when(rs.next()).thenReturn(true)
                     .thenReturn(true)
@@ -225,9 +239,9 @@ public class ModelUnitTests {
 
             Countries ct = new Countries(s);
             assertNotNull(ct);
-            assertTrue(ct.getCountryList().contains("Germany"));
-            assertTrue(ct.getCountryList().contains("Spain"));
-            assertTrue(ct.getCountryList().contains("France"));
+            assertTrue(ct.getCountryList().contains(GERMANY));
+            assertTrue(ct.getCountryList().contains(SPAIN));
+            assertTrue(ct.getCountryList().contains(FRANCE));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -257,7 +271,7 @@ public class ModelUnitTests {
     @Test
     public void safetyinfoTestIndexVerification() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -276,8 +290,8 @@ public class ModelUnitTests {
     @Test
     public void landmarksTestQueryVerification() {
         try {
-            String country = "Germany";
-            String city = "Munich";
+            String country = GERMANY;
+            String city = MUNICH;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
             when(s.executeQuery(anyString())).thenReturn(rs);
@@ -298,7 +312,7 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestQueryVerification() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
             when(s.executeQuery(anyString())).thenReturn(rs);
@@ -317,8 +331,8 @@ public class ModelUnitTests {
 
     public void landmarkSinglePlaceHeaderVerification() {
         try {
-            String country = "France";
-            String city = "Paris";
+            String country = FRANCE;
+            String city = PARIS;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
@@ -340,16 +354,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoNotNullMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("All Serivces")
-                    .thenReturn("Police")
-                    .thenReturn("Medical Help");
+                    .thenReturn(ALL_SERIVCES)
+                    .thenReturn(POLICE)
+                    .thenReturn(MEDICAL_HELP);
 
 
             when(rs.next()).thenReturn(true)
@@ -368,16 +382,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestDescriptionNotEmptyMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("All Serivces")
-                    .thenReturn("Police")
-                    .thenReturn("Medical Help");
+                    .thenReturn(ALL_SERIVCES)
+                    .thenReturn(POLICE)
+                    .thenReturn(MEDICAL_HELP);
 
 
             when(rs.next()).thenReturn(true)
@@ -396,16 +410,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestDescriptionPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(2))
-                    .thenReturn("All Serivces")
-                    .thenReturn("Police")
-                    .thenReturn("Medical Help");
+                    .thenReturn(ALL_SERIVCES)
+                    .thenReturn(POLICE)
+                    .thenReturn(MEDICAL_HELP);
 
 
             when(rs.next()).thenReturn(true)
@@ -414,9 +428,9 @@ public class ModelUnitTests {
                     .thenReturn(false);
 
             SafetyInfo ct = new SafetyInfo(stringSample, s);
-            assertTrue(ct.getNumbers().get(0).getDescription().contains("All Serivces"));
-            assertTrue(ct.getNumbers().get(1).getDescription().contains("Police"));
-            assertTrue(ct.getNumbers().get(2).getDescription().contains("Medical Help"));
+            assertTrue(ct.getNumbers().get(0).getDescription().contains(ALL_SERIVCES));
+            assertTrue(ct.getNumbers().get(1).getDescription().contains(POLICE));
+            assertTrue(ct.getNumbers().get(2).getDescription().contains(MEDICAL_HELP));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -425,16 +439,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestNumberPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("111")
-                    .thenReturn("222")
-                    .thenReturn("333");
+                    .thenReturn(FIRST_SAFETY_NUMBER)
+                    .thenReturn(SECOND_SAFETY_NUMBER)
+                    .thenReturn(THIRD_SAFETY_NUMBER);
 
 
             when(rs.next()).thenReturn(true)
@@ -443,9 +457,9 @@ public class ModelUnitTests {
                     .thenReturn(false);
 
             SafetyInfo ct = new SafetyInfo(stringSample, s);
-            assertTrue(ct.getNumbers().get(0).getNumber().contains("111"));
-            assertTrue(ct.getNumbers().get(1).getNumber().contains("222"));
-            assertTrue(ct.getNumbers().get(2).getNumber().contains("333"));
+            assertTrue(ct.getNumbers().get(0).getNumber().contains(FIRST_SAFETY_NUMBER));
+            assertTrue(ct.getNumbers().get(1).getNumber().contains(SECOND_SAFETY_NUMBER));
+            assertTrue(ct.getNumbers().get(2).getNumber().contains(THIRD_SAFETY_NUMBER));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -454,25 +468,25 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestFullInfoPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("111");
+                    .thenReturn(FIRST_SAFETY_NUMBER);
 
             when(rs.getString(2))
-                    .thenReturn("Police");
+                    .thenReturn(POLICE);
 
 
             when(rs.next()).thenReturn(true)
                     .thenReturn(false);
 
             SafetyInfo ct = new SafetyInfo(stringSample, s);
-            assertTrue(ct.getNumbers().get(0).getNumber().contains("111"));
-            assertTrue(ct.getNumbers().get(0).getDescription().contains("Police"));
+            assertTrue(ct.getNumbers().get(0).getNumber().contains(FIRST_SAFETY_NUMBER));
+            assertTrue(ct.getNumbers().get(0).getDescription().contains(POLICE));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -480,21 +494,21 @@ public class ModelUnitTests {
 
     public void landmarkSinglePlaceDescriptionVerification() {
         try {
-            String country = "France";
-            String city = "Paris";
+            String country = FRANCE;
+            String city = PARIS;
 
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
-            when(rs.getString(1)).thenReturn("The highest place in the city");
+            when(rs.getString(1)).thenReturn(FIRST_LANDMARK_DESCRIPTION);
             when(rs.next()).thenReturn(true).thenReturn(false);
 
             Places ct = new Places(country, city, s);
 
             assertNotNull(ct);
-            assertTrue(ct.getLandmarkList().contains(new Landmark("The highest place in the city")));
+            assertTrue(ct.getLandmarkList().contains(new Landmark(FIRST_LANDMARK_DESCRIPTION)));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -504,16 +518,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestNumbersNotNullMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("All Serivces")
-                    .thenReturn("Police")
-                    .thenReturn("Medical Help");
+                    .thenReturn(ALL_SERIVCES)
+                    .thenReturn(POLICE)
+                    .thenReturn(MEDICAL_HELP);
 
 
             when(rs.next()).thenReturn(true)
@@ -531,16 +545,16 @@ public class ModelUnitTests {
     @Test
     public void safetyInfoTestNumbersPresentMocked() {
         try {
-            String stringSample ="France";
+            String stringSample = FRANCE;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
             when(s.executeQuery(anyString())).thenReturn(rs);
 
             when(rs.getString(1))
-                    .thenReturn("All Serivces")
-                    .thenReturn("Police")
-                    .thenReturn("Medical Help");
+                    .thenReturn(ALL_SERIVCES)
+                    .thenReturn(POLICE)
+                    .thenReturn(MEDICAL_HELP);
 
 
             when(rs.next()).thenReturn(true)
@@ -560,8 +574,8 @@ public class ModelUnitTests {
 
     public void landmarkTestIndexVerification() {
         try {
-            String country = "France";
-            String city = "Paris";
+            String country = FRANCE;
+            String city = PARIS;
             Statement s = mock(Statement.class);
             ResultSet rs = mock(ResultSet.class);
 
