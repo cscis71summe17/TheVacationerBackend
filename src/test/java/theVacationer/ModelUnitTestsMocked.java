@@ -21,6 +21,77 @@ import theVacationer.model.geodata.Cities;
 public class ModelUnitTestsMocked {
 
     @Test
+    public void cityTestIndexVerification() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Cities ct = new Cities(stringSample, s);
+
+            verify(rs, times(1)).getString(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void cityTestQueryVerification() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            String str =
+                    "SELECT A.name FROM  City AS A, Country AS B WHERE A.country_id = B.id AND B.name LIKE 'France';";
+
+            Cities ct = new Cities(stringSample, s);
+
+            verify(s, times(1)).executeQuery(str);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void cityTestMultiCityPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("Paris")
+                    .thenReturn("Marselle")
+                    .thenReturn("Lyon");
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            Cities ct = new Cities(stringSample, s);
+            assertNotNull(ct);
+            assertTrue(ct.getCityList().contains("Paris"));
+            assertTrue(ct.getCityList().contains("Marselle"));
+            assertTrue(ct.getCityList().contains("Lyon"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
     public void cityTestFranceCapitalPresentMocked() {
         try {
             String stringSample ="France";
@@ -41,28 +112,3 @@ public class ModelUnitTestsMocked {
     }
 
 }
-
-
-
-//
-//public class MyReaderTest {
-//
-//    @InjectMocks
-//    private MyReader myReader;
-//
-//    @SuppressWarnings("unchecked")
-//    @Before
-//    public void setUp() throws Exception {
-//        Statement s = mock(Statement.class);
-//        ResultSet rs = mock(ResultSet.class);
-//
-//        when(s.executeQuery(anyString())).thenReturn(rs);
-//        when(rs.getString("myColumn")).thenThrow(SQLException.class);
-//    }
-//
-//    @Test
-//    public void testRead_AccessNonExistentColumn() {
-//        // Use mock statement and mock resultset
-//    }
-//
-//}
