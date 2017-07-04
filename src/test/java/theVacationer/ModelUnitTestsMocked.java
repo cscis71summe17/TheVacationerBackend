@@ -46,7 +46,6 @@ public class ModelUnitTestsMocked {
         }
     }
 
-
     @Test
     public void cityTestQueryVerification() {
         try {
@@ -60,6 +59,33 @@ public class ModelUnitTestsMocked {
             Cities ct = new Cities(stringSample, s);
 
             verify(s, times(1)).executeQuery(str);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void cityTestMultiCityNotNulltMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("Paris")
+                    .thenReturn("Marselle")
+                    .thenReturn("Lyon");
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            Cities ct = new Cities(stringSample, s);
+            assertNotNull(ct);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,7 +112,6 @@ public class ModelUnitTestsMocked {
                     .thenReturn(false);
 
             Cities ct = new Cities(stringSample, s);
-            assertNotNull(ct);
             assertTrue(ct.getCityList().contains("Paris"));
             assertTrue(ct.getCityList().contains("Marselle"));
             assertTrue(ct.getCityList().contains("Lyon"));
@@ -95,7 +120,6 @@ public class ModelUnitTestsMocked {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void cityTestFranceCapitalPresentMocked() {
@@ -118,7 +142,7 @@ public class ModelUnitTestsMocked {
     }
 
     @Test
-    public void countryTestPresentMocked() {
+    public void countryTestNotNullMocked() {
         try {
             String stringSample ="France";
             Statement s = mock(Statement.class);
@@ -130,6 +154,24 @@ public class ModelUnitTestsMocked {
 
             Countries ct = new Countries(s);
             assertNotNull(ct);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void countryTestPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+            when(rs.getString(2)).thenReturn(stringSample);
+            when(rs.next()).thenReturn(true).thenReturn(false);
+
+            Countries ct = new Countries(s);
             assertTrue(ct.getCountryList().contains(stringSample));
 
         } catch (SQLException e) {
@@ -156,7 +198,6 @@ public class ModelUnitTestsMocked {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void countryTestMultiCountryPresentMocked() {
@@ -188,8 +229,6 @@ public class ModelUnitTestsMocked {
         }
     }
 
-
-
     @Test
     public void countryTestQueryVerification() {
         try {
@@ -207,7 +246,6 @@ public class ModelUnitTestsMocked {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void safetyinfoTestIndexVerification() {
@@ -277,7 +315,7 @@ public class ModelUnitTestsMocked {
     }
 
     @Test
-    public void safetyInfoDescriptionPresentMocked() {
+    public void safetyInfoTestDescriptionNotEmptyMocked() {
         try {
             String stringSample ="France";
             Statement s = mock(Statement.class);
@@ -297,8 +335,34 @@ public class ModelUnitTestsMocked {
                     .thenReturn(false);
 
             SafetyInfo ct = new SafetyInfo(stringSample, s);
-            assertNotNull(ct);
-            assertTrue(ct.getNumbers().size()>=3);
+            assertTrue(ct.getNumbers().size()>0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoTestDescriptionPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("All Serivces")
+                    .thenReturn("Police")
+                    .thenReturn("Medical Help");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
             assertTrue(ct.getNumbers().get(0).getDescription().contains("All Serivces"));
             assertTrue(ct.getNumbers().get(1).getDescription().contains("Police"));
             assertTrue(ct.getNumbers().get(2).getDescription().contains("Medical Help"));
@@ -307,7 +371,6 @@ public class ModelUnitTestsMocked {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void safetyInfoTestNumbersNotNullMocked() {
@@ -330,8 +393,33 @@ public class ModelUnitTestsMocked {
                     .thenReturn(false);
 
             SafetyInfo ct = new SafetyInfo(stringSample, s);
-            assertNotNull(ct);
-            assertTrue(ct.getNumbers().size()>=3);
+            assertNotNull(ct.getNumbers());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void safetyInfoTestNumbersPresentMocked() {
+        try {
+            String stringSample ="France";
+            Statement s = mock(Statement.class);
+            ResultSet rs = mock(ResultSet.class);
+
+            when(s.executeQuery(anyString())).thenReturn(rs);
+
+            when(rs.getString(1))
+                    .thenReturn("All Serivces")
+                    .thenReturn("Police")
+                    .thenReturn("Medical Help");
+
+
+            when(rs.next()).thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(true)
+                    .thenReturn(false);
+
+            SafetyInfo ct = new SafetyInfo(stringSample, s);
             assertNotNull(ct.getNumbers().get(0).getNumber());
             assertNotNull(ct.getNumbers().get(1).getNumber());
             assertNotNull(ct.getNumbers().get(2).getNumber());
